@@ -1,0 +1,62 @@
+name: SpinControls
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+
+targets:
+  SpinControls:
+    type: application
+    platform: iOS
+    sources:
+      - path: SpinControls
+      - path: Shared/MusicControlIntents.swift
+      - path: Shared/MusicSnapshot.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.SpinControls
+        INFOPLIST_KEY_CFBundleDisplayName: SpinControls
+        INFOPLIST_KEY_NSAppleMusicUsageDescription: "SpinControls uses Apple Music access to show and control the music currently playing in the Music app."
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_ENTITLEMENTS: Config/SpinControls.entitlements
+        SWIFT_EMIT_LOC_STRINGS: YES
+    dependencies:
+      - target: SpinControlsWidget
+        embed: true
+    entitlements:
+      path: Config/SpinControls.entitlements
+      properties:
+        com.apple.developer.music-kit: true
+        com.apple.security.application-groups:
+          - group.com.example.SpinControls
+
+  SpinControlsWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SpinControlsWidget
+      - path: Shared/MusicControlIntents.swift
+      - path: Shared/MusicSnapshot.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.SpinControls.widget
+        INFOPLIST_KEY_CFBundleDisplayName: SpinControlsWidget
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        INFOPLIST_KEY_NSExtension_NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).SpinControlsWidget"
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+        CODE_SIGN_ENTITLEMENTS: Config/SpinControls.entitlements
+    entitlements:
+      path: Config/SpinControls.entitlements
+      properties:
+        com.apple.developer.music-kit: true
+        com.apple.security.application-groups:
+          - group.com.example.SpinControls
