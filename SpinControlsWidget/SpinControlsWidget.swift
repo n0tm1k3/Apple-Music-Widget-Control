@@ -1,6 +1,7 @@
 import SwiftUI
-import WidgetKit
 import AppIntents
+import MusicKit
+import WidgetKit
 
 struct SpinControlsEntry: TimelineEntry {
     let date: Date
