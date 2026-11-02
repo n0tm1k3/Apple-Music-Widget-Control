@@ -1,6 +1,7 @@
 import SwiftUI
 import MusicKit
 import WidgetKit
+import AppIntents
 
 struct ContentView: View {
     @State private var authorizationMessage = "Connect to Apple Music to enable controls."
